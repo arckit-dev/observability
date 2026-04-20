@@ -43,6 +43,19 @@ describe('fileLogger', () => {
     expect(entry).toMatchObject({ event: 'user.created', userId: '123' });
   });
 
+  it('should add pino-pretty transport when console is enabled', async () => {
+    const logPath = join(tmpDir, 'console-test.log');
+    const logger = fileLogger({ path: logPath, console: true });
+
+    logger.log({ level: 'info', event: 'with.console' });
+
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    const content = readFileSync(logPath, 'utf-8').trim();
+    const entry = JSON.parse(content);
+    expect(entry).toMatchObject({ event: 'with.console' });
+  });
+
   it('should return a logger with a log method', () => {
     const logPath = join(tmpDir, 'api-test.log');
     const logger = fileLogger({ path: logPath });

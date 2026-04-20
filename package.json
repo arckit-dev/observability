@@ -82,6 +82,9 @@
     "typescript": "^5.9.0",
     "vitest": "^4.0.0"
   },
+  "knip": {
+    "ignoreDependencies": ["pino-pretty"]
+  },
   "size-limit": [
     {
       "path": "dist/index.js",
